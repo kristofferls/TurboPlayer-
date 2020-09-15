@@ -27,7 +27,7 @@ if ($Steinkjer_toggle == 0) { //Sett sending til Steinkjer.
                                 // Kjør kommando mot Mandozzi. Disse variablene er VELDIG skumle å endre på, og MÅ kvalitetssjekkes før bruk!!!!!
 
                                 
-                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "160.67.28.205"	"8080" "CONN|00D780FFFFFF8801FF9B00FFE901FF6E00FFE901FF6F00" \}}, "", "NoWindow" ) //Se confluence.
+                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_Firewall"	"8080" "CONN|HEX-STRING" \}}, "", "NoWindow" ) //Se confluence.
                                 
                                 TP_ShowError(*, Sending Mandozzi-routing commands)                                
                                 $Steinkjer_toggle = 1 //Sett intern switch-variabel til 1, slik at TP vet at den ved neste klikk går inn i neste kodeblokk. 
@@ -50,7 +50,7 @@ if ($Steinkjer_toggle == 1) { //Sett sending til Namsos
                                 // Kjør kommando mot Mandozzi. Disse variablene er VELDIG skumle å endre på, og MÅ kvalitetssjekkes før bruk!!!!!
 
                                 
-                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "160.67.28.205"	"8080" "DISC|00D780FFFFFFE901FF6E00FF6F00FF9B00" \}}, "", "NoWindow" ) //Se confluence.
+                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_FIREWALL"	"8080" "DISC|HEX_STRING" \}}, "", "NoWindow" ) //Se confluence.
                                 
                                 TP_ShowError(*, Sending Mandozzi-routing commands)                                
                                 $Steinkjer_toggle = 0 //Sett intern switch-variabel til 1, slik at TP vet at den ved neste klikk går inn i neste kodeblokk. 
