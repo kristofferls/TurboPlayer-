@@ -37,8 +37,8 @@ if ($OnAirToggle == 0 && $SafetySwitch == 1) {
                                                 // Kjør kommando mot Mandozzi. Disse variablene er VELDIG skumle å endre på, og MÅ kvalitetssjekkes før bruk!!!!!
 
                                                 
-                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "160.67.28.205"	"8080" "CONNCHAN|00D780FFFFFF6E00FF0700" \}}, "", "NoWindow" ) // 6E00 = Mandozzi input RemoteTP PGM2 0700 = Mandozzi stasjon 8. Input-nummer er reversert, dvs de to siste numrene er de to første. 6E00 = 006E i routeren. 
-                                                
+                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_Firwall"	"8080" "CONNCHAN|HEX-STRING" \}}, "", "NoWindow" ) // Se confluence
+							
                                                 $OnAirToggle = 1 //Sett intern switch-variabel til 1, slik at TP vet at den ved neste klikk går inn i neste kodeblokk. 
                                                 
                                                 TP_ShowError(*, OnAir command sent to router!)
@@ -59,7 +59,7 @@ if ($OnAirToggle == 1) {
 
                               // do some more Mandozzi magic
 
-                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "160.67.28.205"	"8080" "DISCCHAN|FF6E00FF0700" \}}, "", "NoWindow" ) // 6E00 = Mandozzi input RemoteTP PGM2 0700 = Mandozzi stasjon 8.
+                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_Firewall"	"8080" "DISCCHAN|HEX-STRING" \}}, "", "NoWindow" ) // Se confluence.
 
                             $OnAirToggle = 0
                             $SafetySwitch = 0
