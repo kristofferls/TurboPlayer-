@@ -8,7 +8,7 @@
 
 
 
-//Sjekk at OnAirToggle-switch-variable finnes i TP minnet. Finnes den ikke, anta at man er OffAir, og sett modus til det:
+//Sjekk at OnAirToggle-switch og SafetySwitch variable finnes i TP minnet. Finnes den ikke, anta at man er OffAir, og sett modus til det:
 
 if (! varexist ( $OnAirToggle ) ) { 
                                     $OnAirToggle = 0
@@ -21,11 +21,14 @@ if (! varexist ( $SafetySwitch ) ) {
                                     } 
 
 
-//Dersom OnAirSwitch ikke er satt til 1, anta at man skal OnAir. 
+//Sjekk om OnAirToggle allerede er trykket på, og sjekk om SafetySwitch (aka "Take" i GUI) er aktiv. Hvis ikke, skriv en feilmelding til skjerm.
+
 if ($OnAirToggle == 0 && $SafetySwitch == 0)    {
                                                     TP_ShowError(*, SafetySwitch is not pressed! OnAirSwitch not allowed!!)
-                                                    break
+                                                    
                                                 }
+//Sjekk om OnAirToggle allerede er trykket, og at SafetySwitch er aktivert. Dersom man ikke allerede er OnAir, men SafetySwitch er skrudd på: Gå på lufta! 
+
 if ($OnAirToggle == 0 && $SafetySwitch == 1) {
                                                 TP_ShowError(*, Switching to OnAir!)  //Skriv til skjermen. 
                                                 TP_ChangeUserButtonProp ( *, * OnAirToggle *, ColorBkgnd, 255, 0, 0 ) //Skift bakgrunnsfarge til rød
@@ -37,8 +40,8 @@ if ($OnAirToggle == 0 && $SafetySwitch == 1) {
                                                 // Kjør kommando mot Mandozzi. Disse variablene er VELDIG skumle å endre på, og MÅ kvalitetssjekkes før bruk!!!!!
 
                                                 
-                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_Firwall"	"8080" "CONNCHAN|HEX-STRING" \}}, "", "NoWindow" ) // Se confluence
-							
+                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_FIREWALL"	"8080" "CONNCHAN|HEXStr" \}}, "", "NoWindow" ) // Se Confluence.
+                                                
                                                 $OnAirToggle = 1 //Sett intern switch-variabel til 1, slik at TP vet at den ved neste klikk går inn i neste kodeblokk. 
                                                 
                                                 TP_ShowError(*, OnAir command sent to router!)
@@ -46,7 +49,7 @@ if ($OnAirToggle == 0 && $SafetySwitch == 1) {
                                                 return // skitten programmering, for å unngå at TP switcher OffAir med en gang etter den har satt seg selv on air.
                                             }   
 
-
+//Dersom OnAirToggle er aktivert, er man allerede på lufta. Derfor: Gå av lufta, og pass på å reset SafetySwitch tilbake til 0. 
 if ($OnAirToggle == 1) {
                             TP_ShowError(*, Is OnAir - switching to OffAir!)
                             TP_ActivateTimer(OnAirBlink, 0)
@@ -59,10 +62,11 @@ if ($OnAirToggle == 1) {
 
                               // do some more Mandozzi magic
 
-                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_Firewall"	"8080" "DISCCHAN|HEX-STRING" \}}, "", "NoWindow" ) // Se confluence.
+                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP_OF_FIREWALL"	"8080" "DISCCHAN|HEXStr" \}}, "", "NoWindow" ) //Se Confluence
 
                             $OnAirToggle = 0
-                            $SafetySwitch = 0
+                            $SafetySwitch = 0 //Re-arm SafetySwitch.
+                            
                             TP_ChangeUserButtonProp(*, * SafetySwitch *, ColorBkgnd, 192,192,192)
                             TP_ShowError(*, OffAir command sent to router.)
                             return
