@@ -41,8 +41,8 @@ if ($OnAirToggle == 0 && $SafetySwitch == 1) {
                                                 // Kjør kommando mot Mandozzi. Disse variablene er VELDIG skumle å endre på, og MÅ kvalitetssjekkes før bruk!!!!!
 
                                                 
-                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"8080" "CONNCHAN|String" \}}, "", "NoWindow" ) // Koble Alle1/2 til lufta. 
-                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"8080" "CONNCHAN|String" \}}, "", "NoWindow" ) // Koble RemoteTP PGM2 til lufta. 
+                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"PORT" "CONNCHAN|String" \}}, "", "NoWindow" ) // Koble Alle1/2 til lufta. 
+                                                TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"PORT" "CONNCHAN|String" \}}, "", "NoWindow" ) // Koble RemoteTP PGM2 til lufta. 
                                                 $OnAirToggle = 1 //Sett intern switch-variabel til 1, slik at TP vet at den ved neste klikk går inn i neste kodeblokk. 
                                                 
                                                 TP_ShowError(*, OnAir command sent to router!)
@@ -63,8 +63,8 @@ if ($OnAirToggle == 1) {
 
                               // do some more Mandozzi magic
 
-                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"8080" "DISCCHAN|String" \}}, "", "NoWindow" ) // RemoteTPPGM
-                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"8080" "DISCCHAN|String" \}}, "", "NoWindow" )// ALle 1/2
+                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"PORT" "DISCCHAN|String" \}}, "", "NoWindow" ) // RemoteTPPGM
+                             TP_StartApp ( \{{ "C:\Data\TCPSender\TCPSender.exe" "IP"	"PORT" "DISCCHAN|String" \}}, "", "NoWindow" )// ALle 1/2
 
                             $OnAirToggle = 0
                             $SafetySwitch = 0 //Re-arm SafetySwitch.
